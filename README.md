@@ -81,7 +81,7 @@ func main() {
 
 	if err := api.ListenAndServe(); err != nil {
 		zl.Fatal("Http server failure: ", err)
-    }
+	}
 }
 ```
 
