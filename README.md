@@ -51,15 +51,43 @@ encoderConfig:
   callerEncoder: default
 ```
 
+For more options see [config.example.yml][Config example].
+
 By default, package search yaml-config in path `/etc/zap/config.yaml`.
 Optionally there is ability to parametrize custom path to config using path-param in `zapper.New(nil, "/custom/path")`.
 
 If zapper initialized with fallback logger, failures will be logged and Zap Logger will be initialized with default
 configuration.
 
+## Writer
+Created for Zap Logger usage in [net/http][net/http] as ErrorLogger:
+```go
+package main
 
+import (
+	"log"
+	"net/http"
 
-[Release img]: https://img.shields.io/badge/release-0.1.0-red.svg
+	"github.com/nafigator/zapper"
+	"github.com/nafigator/zapper/writer"
+)
+
+func main() {
+	zl := zapper.Must(nil, nil)
+	
+	api := &http.Server{
+		ErrorLog: log.New(writer.New(zl), "", 0),
+	}
+
+	if err := api.ListenAndServe(); err != nil {
+		zl.Fatal("Http server failure: ", err)
+    }
+}
+```
+
+[Release img]: https://img.shields.io/badge/release-0.2.0-red.svg
 [Release src]: https://github.com/nafigator/zap
 [Conventional commits src]: https://conventionalcommits.org
 [Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
+[Config example]: https://github.com/nafigator/zapper/blob/main/config.example.yml
+[net/http]: https://pkg.go.dev/net/http

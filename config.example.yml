@@ -1,0 +1,71 @@
+## Config for zap logger
+
+# Case insensitive values: debug | info | warn | error | dpanic | panic | fatal
+level: debug
+
+# Values: true | false
+#development: false
+
+# Values: true | false
+#disableCaller: false
+
+# Values: true | false
+#disableStacktrace: false
+
+# Sampling sets a sampling policy. A nil SamplingConfig disables sampling.
+#sampling:
+  #initial: 20
+  #thereafter: 10
+
+# Values: console | json
+encoding: console
+
+# Values: stdout | stderr | URL
+# URL examples:
+#   tcp://192.168.100.22:8888
+#   udp://192.168.100.22:5555
+outputPaths:
+  - stdout
+
+# Values: stdout | stderr | URL
+# URL examples:
+#   tcp://192.168.100.22:8888
+#   udp://192.168.100.22:5555
+errorOutputPaths:
+  - stderr
+
+# Any key-values that will be added to every message.
+#initialFields:
+#  loggerVersion: v1.24.0
+
+encoderConfig:
+  messageKey: message
+  levelKey:   level
+  timeKey:    time
+  #nameKey:   name
+  callerKey:  line
+  #functionKey: func
+  #stacktraceKey: trace
+
+  # Values: true | false
+  #skipLineEnding: true
+
+  # Examples: "\r\n" | "\n"
+  #lineEnding: "\n"
+
+  # Values: capital | capitalColor | color | default
+  levelEncoder: capitalColor
+  # Values: rfc3339nano | RFC3339Nano | rfc3339 | RFC3339 | iso8601 | ISO8601 | millis | nanos | default
+  timeEncoder:
+    layout: 2006-01-02 15:04:05.000
+  # Values: string | nanos | ms | default
+  durationEncoder: string
+  # Values: full | default
+  # In console works only if callerKey defined
+  callerEncoder: default
+
+  # Values: full
+  #nameEncoder: full
+
+  # Examples: " " | "\t\t"
+  #consoleSeparator: "\t"
