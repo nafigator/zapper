@@ -85,7 +85,7 @@ func main() {
 }
 ```
 
-[Release img]: https://img.shields.io/badge/release-0.2.0-red.svg
+[Release img]: https://img.shields.io/badge/release-0.3.0-red.svg
 [Release src]: https://github.com/nafigator/zap
 [Conventional commits src]: https://conventionalcommits.org
 [Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg
