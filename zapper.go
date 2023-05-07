@@ -12,7 +12,8 @@ import (
 const (
 	openConfigWarning = "Zap config open failure: %s. Fallback to default"
 	readConfigWarning = "Zap config read failure: %s. Fallback to default"
-	defaultConfPath   = "/etc/zap/config.yaml"
+	localPath         = "./config.yml"
+	systemPath        = "/etc/zap/config.yml"
 	defaultConf       = `
 level: info
 encoding: console
@@ -79,23 +80,36 @@ func Must(fl fallbackLogger, path *string) *zap.SugaredLogger {
 	return logger.Sugar()
 }
 
+func defaultPathList() []string {
+	return []string{
+		localPath,
+		systemPath,
+	}
+}
+
 func getYaml(fl fallbackLogger, path *string) []byte {
 	var bytes []byte
 	var err error
 	var yamlFile *os.File
-	var p string
+	var p []string
 
 	if path != nil {
-		p = *path
+		p = []string{*path}
 	} else {
-		p = defaultConfPath
+		p = defaultPathList()
 	}
 
-	if yamlFile, err = os.Open(p); err != nil {
-		if fl != nil {
-			fl.Printf(openConfigWarning, err)
-		}
+	for _, v := range p {
+		if yamlFile, err = os.Open(v); err != nil {
+			if fl != nil {
+				fl.Printf(openConfigWarning, err)
+			}
 
+			continue
+		}
+	}
+
+	if yamlFile == nil {
 		return []byte(defaultConf)
 	}
 
