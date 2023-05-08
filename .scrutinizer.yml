@@ -1,0 +1,42 @@
+checks:
+  go: true
+
+build:
+  environment:
+    memcached: false
+    postgresql: false
+    redis: false
+    mysql: false
+    neo4j: false
+    rabbitmq: false
+    elasticsearch: false
+
+  # Run after dependencies
+  project_setup:
+    override:
+      - git clone https://github.com/nafigator/zapper.git
+      - cd zapper
+      - git checkout $SCRUTINIZER_BRANCH
+      - git pull --rebase origin main
+
+  nodes:
+    analysis:
+      project_setup:
+        override:
+          - 'true'
+      environment:
+        go:
+          version: go1.20.4
+      tests:
+        override:
+          - go-scrutinizer-run --enable-security-analysis
+          - govet-run
+          - golint-run
+
+  tests:
+    environment:
+      go:
+        version: go1.20.4
+    override:
+      -
+        command: false

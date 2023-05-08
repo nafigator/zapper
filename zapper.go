@@ -39,12 +39,12 @@ type fallbackLogger interface {
 }
 
 // New creates logger instance.
-func New(fl fallbackLogger, path *string) (*zap.SugaredLogger, error) {
+func New(path *string, fl fallbackLogger) (*zap.SugaredLogger, error) {
 	var cfg zap.Config
 	var logger *zap.Logger
 	var err error
 
-	if err = yaml.Unmarshal(getYaml(fl, path), &cfg); err != nil {
+	if err = yaml.Unmarshal(getYaml(path, fl), &cfg); err != nil {
 		return nil, err
 	}
 
@@ -56,12 +56,12 @@ func New(fl fallbackLogger, path *string) (*zap.SugaredLogger, error) {
 }
 
 // Must function creates logger instance without error returning.
-func Must(fl fallbackLogger, path *string) *zap.SugaredLogger {
+func Must(path *string, fl fallbackLogger) *zap.SugaredLogger {
 	var cfg zap.Config
 	var logger *zap.Logger
 	var err error
 
-	if err = yaml.Unmarshal(getYaml(fl, path), &cfg); err != nil {
+	if err = yaml.Unmarshal(getYaml(path, fl), &cfg); err != nil {
 		if fl != nil {
 			fl.Printf("Zapper unmarshal failure: %s", err)
 		}
@@ -80,36 +80,14 @@ func Must(fl fallbackLogger, path *string) *zap.SugaredLogger {
 	return logger.Sugar()
 }
 
-func defaultPathList() []string {
-	return []string{
-		localPath,
-		systemPath,
-	}
-}
-
-func getYaml(fl fallbackLogger, path *string) []byte {
+func getYaml(path *string, fl fallbackLogger) []byte {
 	var bytes []byte
 	var err error
 	var yamlFile *os.File
-	var p []string
 
-	if path != nil {
-		p = []string{*path}
-	} else {
-		p = defaultPathList()
-	}
+	p := getPathList(path)
 
-	for _, v := range p {
-		if yamlFile, err = os.Open(v); err != nil {
-			if fl != nil {
-				fl.Printf(openConfigWarning, err)
-			}
-
-			continue
-		}
-	}
-
-	if yamlFile == nil {
+	if yamlFile = openFile(p, fl); yamlFile == nil {
 		return []byte(defaultConf)
 	}
 
@@ -122,4 +100,28 @@ func getYaml(fl fallbackLogger, path *string) []byte {
 	}
 
 	return bytes
+}
+
+func openFile(p []string, fl fallbackLogger) *os.File {
+	var yamlFile *os.File
+	var err error
+
+	for _, v := range p {
+		if yamlFile, err = os.Open(v); err != nil && fl != nil {
+			fl.Printf(openConfigWarning, err)
+		}
+	}
+
+	return yamlFile
+}
+
+func getPathList(path *string) []string {
+	if path != nil {
+		return []string{*path}
+	}
+
+	return []string{
+		localPath,
+		systemPath,
+	}
 }
