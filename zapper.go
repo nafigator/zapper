@@ -4,7 +4,7 @@ import (
 	"io"
 	"os"
 
-	_ "github.com/kontera-technologies/zap-net-sink"
+	_ "github.com/kontera-technologies/zap-net-sink" // Init UDP and TCP zap logger sinks
 	"go.uber.org/zap"
 	"gopkg.in/yaml.v3"
 )
@@ -55,7 +55,7 @@ func New(path *string, fl fallbackLogger) (*zap.SugaredLogger, error) {
 	return logger.Sugar(), nil
 }
 
-// Must function creates logger instance without error returning.
+// Must function creates logger instance with panic on failure.
 func Must(path *string, fl fallbackLogger) *zap.SugaredLogger {
 	var cfg zap.Config
 	var logger *zap.Logger
@@ -66,15 +66,11 @@ func Must(path *string, fl fallbackLogger) *zap.SugaredLogger {
 			fl.Printf("Zapper unmarshal failure: %s", err)
 		}
 
-		l, _ := zap.NewProductionConfig().Build()
-
-		return l.Sugar()
+		panic(err)
 	}
 
 	if logger, err = cfg.Build(); err != nil {
-		l, _ := zap.NewProductionConfig().Build()
-
-		return l.Sugar()
+		panic(err)
 	}
 
 	return logger.Sugar()
@@ -107,9 +103,15 @@ func openFile(p []string, fl fallbackLogger) *os.File {
 	var err error
 
 	for _, v := range p {
-		if yamlFile, err = os.Open(v); err != nil && fl != nil {
-			fl.Printf(openConfigWarning, err)
+		if yamlFile, err = os.Open(v); err != nil {
+			if fl != nil {
+				fl.Printf(openConfigWarning, err)
+			}
+
+			continue
 		}
+
+		break
 	}
 
 	return yamlFile

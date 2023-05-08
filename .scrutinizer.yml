@@ -18,12 +18,15 @@ build:
       - cd zapper
       - git checkout $SCRUTINIZER_BRANCH
       - git pull --rebase origin main
+      - go mod tidy
+      - go install github.com/axw/gocov/gocov@latest
+      - go install github.com/AlekSi/gocov-xml@latest
 
   nodes:
     analysis:
       project_setup:
         override:
-          - 'true'
+          - true
       environment:
         go:
           version: go1.20.4
@@ -32,8 +35,18 @@ build:
           - go-scrutinizer-run --enable-security-analysis
           - govet-run
           - golint-run
+    tests:
+      environment:
+        go:
+          version: go1.20.4
 
   tests:
+#    before:
+#      -
+#        command: go mod tidy && go mod vendor
     override:
       -
-        command: false
+        command: go test -gcflags=-l -coverprofile=/home/scrutinizer/build/zapper/cover.out
+        coverage:
+          file: /home/scrutinizer/build/zapper/cover.out
+          format: go-cc

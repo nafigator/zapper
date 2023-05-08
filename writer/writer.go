@@ -1,11 +1,14 @@
 package writer
 
-import "go.uber.org/zap"
-
-type ErrWriter struct {
-	logger *zap.SugaredLogger
+type ErrLogger interface {
+	Error(...interface{})
 }
 
+type ErrWriter struct {
+	logger ErrLogger
+}
+
+// Write writes byes to inner error logger.
 func (w *ErrWriter) Write(p []byte) (int, error) {
 	w.logger.Error(string(p))
 
@@ -13,6 +16,6 @@ func (w *ErrWriter) Write(p []byte) (int, error) {
 }
 
 // New creates writer for usage in standard http package.
-func New(log *zap.SugaredLogger) *ErrWriter {
+func New(log ErrLogger) *ErrWriter {
 	return &ErrWriter{logger: log}
 }

@@ -1,7 +1,7 @@
 # Uber Zap logger helpers
-[![GitHub license][License img]][License src] [![GitHub release][Release img]][Release src] [![Scrutinizer master status][Scrutinizer master status image]][Scrutinizer master status src] [![Scrutinizer master code quality][Scrutinizer master quality image]][Scrutinizer master src] [![Conventional Commits][Conventional commits badge]][Conventional commits src]
+[![GitHub release][Release img]][Release src] [![Scrutinizer master status][Scrutinizer master status image]][Scrutinizer master status src] [![Scrutinizer master code quality][Scrutinizer master quality image]][Scrutinizer master src] [![Scrutinizer master code coverage][Scrutinizer master coverage image]][Scrutinizer master src] [![GitHub license][License img]][License src] [![Conventional Commits][Conventional commits badge]][Conventional commits src]
 
-## Conf
+## Zapper
 Features:
 - easiest Zap Logger configuration using yaml-config.
 - configuration TCP and UDP Zap Logger sinks out of box.
@@ -71,29 +71,29 @@ Created for Zap Logger usage in [net/http][net/http] as ErrorLogger:
 	go install github.com/nafigator/zapper/writer@latest
 	```
 2. Use writer to initialize Zap Logger writer for http-server `ErrorLog`:
-```go
-package main
+	```go
+	package main
 
-import (
-	"log"
-	"net/http"
+	import (
+		"log"
+		"net/http"
 
-	"github.com/nafigator/zapper"
-	"github.com/nafigator/zapper/writer"
-)
+		"github.com/nafigator/zapper"
+		"github.com/nafigator/zapper/writer"
+	)
 
-func main() {
-	zl := zapper.Must(nil, nil)
-	
-	api := &http.Server{
-		ErrorLog: log.New(writer.New(zl), "", 0),
+	func main() {
+		zl := zapper.Must(nil, nil)
+		
+		api := &http.Server{
+			ErrorLog: log.New(writer.New(zl), "", 0),
+		}
+
+		if err := api.ListenAndServe(); err != nil {
+			zl.Fatal("Http server failure: ", err)
+		}
 	}
-
-	if err := api.ListenAndServe(); err != nil {
-		zl.Fatal("Http server failure: ", err)
-	}
-}
-```
+	```
 
 ## Versioning
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
@@ -101,14 +101,15 @@ as a public API. Read more on [SemVer.org][semver src].
 
 [License img]: https://img.shields.io/badge/license-MIT-brightgreen.svg
 [License src]: https://www.tldrlegal.com/license/mit-license
-[Release img]: https://img.shields.io/badge/release-0.4.1-red.svg
+[Release img]: https://img.shields.io/badge/release-0.4.2-red.svg
 [Release src]: https://github.com/nafigator/zap
 [Conventional commits src]: https://conventionalcommits.org
 [Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg
 [Config example]: https://github.com/nafigator/zapper/blob/main/config.example.yml
 [net/http]: https://pkg.go.dev/net/http
 [semver src]: http://semver.org
-[Scrutinizer master quality image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/quality-score.png?b=master
-[Scrutinizer master src]: https://scrutinizer-ci.com/g/nafigator/zapper/?branch=master
-[Scrutinizer master status image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/build.png?b=master
-[Scrutinizer master status src]: https://scrutinizer-ci.com/g/nafigator/zapper/?branch=master
+[Scrutinizer master quality image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/quality-score.png?b=main
+[Scrutinizer master src]: https://scrutinizer-ci.com/g/nafigator/zapper/?branch=main
+[Scrutinizer master status image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/build.png?b=main
+[Scrutinizer master status src]: https://scrutinizer-ci.com/g/nafigator/zapper/build-status/main
+[Scrutinizer master coverage image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/coverage.png?b=main
