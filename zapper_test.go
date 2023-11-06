@@ -24,27 +24,6 @@ const (
 	cfgBuildErr
 )
 
-const (
-	defaultConf = `
-level: info
-encoding: console
-outputPaths:
-  - stdout
-errorOutputPaths:
-  - stderr
-encoderConfig:
-  messageKey: message
-  levelKey:   level
-  timeKey:    time
-  callerKey:  line
-  levelEncoder: capitalColor
-  timeEncoder:
-    layout: 2006-01-02 15:04:05.000
-  durationEncoder: string
-  callerEncoder: default
-`
-)
-
 type patch int
 
 type fallbackLogger interface {
@@ -193,7 +172,7 @@ func defaultZapper() *zap.SugaredLogger {
 	var logger *zap.Logger
 	var err error
 
-	if err = yaml.Unmarshal([]byte(defaultConf), &cfg); err != nil {
+	if err = yaml.Unmarshal([]byte(DefaultConf), &cfg); err != nil {
 		panic(err)
 	}
 
@@ -229,7 +208,7 @@ func applyPatches(p []patch, d string) {
 			})
 		case IOReadAll:
 			monkey.Patch(io.ReadAll, func(io.Reader) ([]byte, error) {
-				return []byte(defaultConf), nil
+				return []byte(DefaultConf), nil
 			})
 		case IOReadAllErr:
 			monkey.Patch(io.ReadAll, func(io.Reader) ([]byte, error) {

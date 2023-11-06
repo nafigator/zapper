@@ -1,5 +1,5 @@
 # Uber Zap logger helpers
-[![GitHub release][Release img]][Release src] [![Scrutinizer master status][Scrutinizer master status image]][Scrutinizer master status src] [![Scrutinizer master code quality][Scrutinizer master quality image]][Scrutinizer master src] [![Scrutinizer master code coverage][Scrutinizer master coverage image]][Scrutinizer master src] [![GitHub license][License img]][License src] [![Conventional Commits][Conventional commits badge]][Conventional commits src]
+[![GitHub release][Release img]][Release src] [![Github main status][Github main status badge]][Github main status src] [![Go Report Card][Go Report Card badge]][Go Report Card src] [![Coverage report][Codecov report badge]][Codecov report src]
 
 ## Zapper
 Features:
@@ -63,53 +63,21 @@ Optionally there is ability to parametrize custom path to config using path-para
 If zapper initialized with fallback logger, config read failures will be logged and Zap Logger will be initialized with
 default configuration.
 
-## Writer
-Created for Zap Logger usage in [net/http][net/http] as ErrorLogger:
-### Getting started
-1. Install package
-	```shell
-	go install github.com/nafigator/zapper/writer@latest
-	```
-2. Use writer to initialize Zap Logger writer for http-server `ErrorLog`:
-	```go
-	package main
-
-	import (
-		"log"
-		"net/http"
-
-		"github.com/nafigator/zapper"
-		"github.com/nafigator/zapper/writer"
-	)
-
-	func main() {
-		zl := zapper.Must(nil, nil)
-		
-		api := &http.Server{
-			ErrorLog: log.New(writer.New(zl), "", 0),
-		}
-
-		if err := api.ListenAndServe(); err != nil {
-			zl.Fatal("Http server failure: ", err)
-		}
-	}
-	```
-
 ## Versioning
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
 as a public API. Read more on [SemVer.org][semver src].
 
 [License img]: https://img.shields.io/badge/license-MIT-brightgreen.svg
 [License src]: https://www.tldrlegal.com/license/mit-license
-[Release img]: https://img.shields.io/badge/release-0.4.2-red.svg
-[Release src]: https://github.com/nafigator/zap
+[Release img]: https://img.shields.io/badge/release-0.4.3-red.svg
+[Release src]: https://github.com/nafigator/zapper
 [Conventional commits src]: https://conventionalcommits.org
 [Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg
 [Config example]: https://github.com/nafigator/zapper/blob/main/config.example.yml
-[net/http]: https://pkg.go.dev/net/http
 [semver src]: http://semver.org
-[Scrutinizer master quality image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/quality-score.png?b=main
-[Scrutinizer master src]: https://scrutinizer-ci.com/g/nafigator/zapper/?branch=main
-[Scrutinizer master status image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/build.png?b=main
-[Scrutinizer master status src]: https://scrutinizer-ci.com/g/nafigator/zapper/build-status/main
-[Scrutinizer master coverage image]: https://scrutinizer-ci.com/g/nafigator/zapper/badges/coverage.png?b=main
+[Github main status src]: https://github.com/nafigator/zapper/tree/main
+[Github main status badge]: https://github.com/nafigator/zapper/actions/workflows/go.yml/badge.svg?branch=main
+[Go Report Card src]: https://goreportcard.com/report/github.com/nafigator/zapper
+[Go Report Card badge]: https://goreportcard.com/badge/github.com/nafigator/zapper
+[Codecov report src]: https://app.codecov.io/gh/nafigator/zapper/tree/main
+[Codecov report badge]: https://codecov.io/gh/nafigator/zapper/branch/main/graph/badge.svg
