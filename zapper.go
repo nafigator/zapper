@@ -14,7 +14,7 @@ const (
 	readConfigWarning = "Zap config read failure: %s. Fallback to default"
 	localPath         = "./config.yml"
 	systemPath        = "/etc/zap/config.yml"
-	defaultConf       = `
+	DefaultConf       = `
 level: info
 encoding: console
 outputPaths:
@@ -84,7 +84,7 @@ func getYaml(path *string, fl fallbackLogger) []byte {
 	p := getPathList(path)
 
 	if yamlFile = openFile(p, fl); yamlFile == nil {
-		return []byte(defaultConf)
+		return []byte(DefaultConf)
 	}
 
 	if bytes, err = io.ReadAll(yamlFile); err != nil {
@@ -92,7 +92,7 @@ func getYaml(path *string, fl fallbackLogger) []byte {
 			fl.Printf(readConfigWarning, err)
 		}
 
-		return []byte(defaultConf)
+		return []byte(DefaultConf)
 	}
 
 	return bytes
