@@ -1,8 +1,6 @@
-# Uber Zap logger helpers
+# Zapper
 [![GitHub release][Release img]][Release src] [![Github main status][Github main status badge]][Github main status src] [![Go Report Card][Go Report Card badge]][Go Report Card src] [![Coverage report][Codecov report badge]][Codecov report src]
 
-## Zapper
-Features:
 - easiest Zap Logger configuration using yaml-config.
 - configuration TCP and UDP Zap Logger sinks out of box.
 - minimal code for full-featured Zap Logger initialization. 
@@ -30,7 +28,7 @@ Features:
 		if zl, err = zapper.New(nil, nil); err != nil {
 			log.Fatal("Zap logger failure: ", err)
 		}
-	
+
 		zl.Info("Zap logger: OK")
 	}
 	```
@@ -63,7 +61,7 @@ Optionally there is ability to parametrize custom path to config using path-para
 If zapper initialized with fallback logger, config read failures will be logged and Zap Logger will be initialized with
 default configuration.
 
-## Versioning
+### Versioning
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
 as a public API. Read more on [SemVer.org][semver src].
 
