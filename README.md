@@ -50,10 +50,6 @@ encoderConfig:
 For more options see [config.example.yml][Config example].
 
 By default, package search yaml-config in current dir or in `/etc/zap/config.yml`.
-Optionally there is ability to parametrize custom path to config using path-param in `zapper.New("/custom/path", nil)`.
-
-If zapper initialized with fallback logger, config read failures will be logged and Zap Logger will be initialized with
-default configuration.
 
 ### Versioning
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
