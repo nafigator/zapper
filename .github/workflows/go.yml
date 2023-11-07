@@ -76,10 +76,6 @@ jobs:
       - name: Check conf package coverage
         uses: vladopajic/go-test-coverage@v2
         with:
-          # Configure action using config file (option 1)
-          #config: ./headers/.testcoverage.yml
-
-          # Configure action by specifying input parameters individually (option 2)
           profile: ./conf/conf.out
           local-prefix: github.com/nafigator/zapper
           threshold-file: 100
@@ -89,10 +85,6 @@ jobs:
       - name: Check writer package coverage
         uses: vladopajic/go-test-coverage@v2
         with:
-          # Configure action using config file (option 1)
-          #config: ./headers/.testcoverage.yml
-
-          # Configure action by specifying input parameters individually (option 2)
           profile: ./writer/writer.out
           local-prefix: github.com/nafigator/zapper
           threshold-file: 100
@@ -102,10 +94,6 @@ jobs:
       - name: Check zapper package coverage
         uses: vladopajic/go-test-coverage@v2
         with:
-          # Configure action using config file (option 1)
-          #config: ./headers/.testcoverage.yml
-
-          # Configure action by specifying input parameters individually (option 2)
           profile: ./zapper.out
           local-prefix: github.com/nafigator/zapper
           threshold-file: 100
