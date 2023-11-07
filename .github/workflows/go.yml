@@ -64,11 +64,27 @@ jobs:
           cache-dependency-path: '**/go.sum'
           go-version: '1.20'
 
+      - name: Test conf package
+        run: go test -C conf -v -gcflags=-l ./... -race -coverprofile=./conf.out -covermode=atomic
+
       - name: Test writer package
         run: go test -C writer -v -gcflags=-l ./... -race -coverprofile=./writer.out -covermode=atomic
 
       - name: Test zapper package
         run: go test -v ./... -gcflags=-l -race -coverprofile=./zapper.out -covermode=atomic
+
+      - name: Check conf package coverage
+        uses: vladopajic/go-test-coverage@v2
+        with:
+          # Configure action using config file (option 1)
+          #config: ./headers/.testcoverage.yml
+
+          # Configure action by specifying input parameters individually (option 2)
+          profile: ./conf/conf.out
+          local-prefix: github.com/nafigator/zapper
+          threshold-file: 100
+          threshold-package: 100
+          threshold-total: 100
 
       - name: Check writer package coverage
         uses: vladopajic/go-test-coverage@v2
@@ -100,7 +116,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./writer/writer.out, ./zapper.out
+          files: ./conf/conf.out, ./writer/writer.out, ./zapper.out
           flags: unittests
           name: codecov-zapper
           verbose: false
