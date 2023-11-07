@@ -15,21 +15,15 @@
 	package main
 
 	import (
-		"log"
-	
 		"github.com/nafigator/zapper"
+		"github.com/nafigator/zapper/conf"
 		"go.uber.org/zap"
 	)
 
 	func main() {
-		var zl *zap.SugaredLogger
-		var err error
+		log := zapper.Must(conf.Must())
 
-		if zl, err = zapper.New(nil, nil); err != nil {
-			log.Fatal("Zap logger failure: ", err)
-		}
-
-		zl.Info("Zap logger: OK")
+		log.Info("Zap logger: OK")
 	}
 	```
 
