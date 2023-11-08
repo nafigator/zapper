@@ -22,7 +22,7 @@ Created for simple Zap Logger configuration build based on yml-config.
 		
 		log := zapper.Must(c)
 
-		log.Info("Logger initialized")
+		log.Info("Zap Logger initialized")
 	}
 	```
 

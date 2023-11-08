@@ -16,12 +16,13 @@ Created for Zap Logger usage in [net/http][net/http] as ErrorLogger:
 		"net/http"
 
 		"github.com/nafigator/zapper"
+		"github.com/nafigator/zapper/conf"
 		"github.com/nafigator/zapper/writer"
 	)
 
 	func main() {
-		zl := zapper.Must(nil, nil)
-		
+		zl := zapper.Must(conf.Must())
+
 		api := &http.Server{
 			ErrorLog: log.New(writer.New(zl), "", 0),
 		}
