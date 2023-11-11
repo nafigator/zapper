@@ -17,7 +17,6 @@
 	import (
 		"github.com/nafigator/zapper"
 		"github.com/nafigator/zapper/conf"
-		"go.uber.org/zap"
 	)
 
 	func main() {
