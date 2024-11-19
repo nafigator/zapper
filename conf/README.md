@@ -18,9 +18,7 @@ Created for simple Zap Logger configuration build based on yml-config.
 
 	func main() {
  		// Initializes config based on yml-files /etc/zap/config.yml or ./config.yml
-		c := conf.Must()
-		
-		log := zapper.Must(c)
+		log := zapper.Must(conf.Must())
 
 		log.Info("Zap Logger initialized")
 	}
@@ -30,12 +28,8 @@ Created for simple Zap Logger configuration build based on yml-config.
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
 as a public API. Read more on [SemVer.org][semver src].
 
-[License img]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[License src]: https://www.tldrlegal.com/license/mit-license
-[Release img]: https://img.shields.io/badge/release-0.1.0-red.svg
+[Release img]: https://img.shields.io/github/v/tag/nafigator/zapper?logo=github&color=teal&filter=conf*
 [Release src]: https://github.com/nafigator/zapper/tree/main/conf
-[Conventional commits src]: https://conventionalcommits.org
-[Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg
 [semver src]: http://semver.org
 [Github main status src]: https://github.com/nafigator/zapper/tree/main
 [Github main status badge]: https://github.com/nafigator/zapper/actions/workflows/go.yml/badge.svg?branch=main

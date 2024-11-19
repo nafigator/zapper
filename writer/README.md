@@ -37,12 +37,8 @@ Created for Zap Logger usage in [net/http][net/http] as ErrorLogger:
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
 as a public API. Read more on [SemVer.org][semver src].
 
-[License img]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-[License src]: https://www.tldrlegal.com/license/mit-license
-[Release img]: https://img.shields.io/badge/release-0.1.1-red.svg
+[Release img]: https://img.shields.io/github/v/tag/nafigator/zapper?logo=github&color=teal&filter=writer*
 [Release src]: https://github.com/nafigator/zapper/tree/main/writer
-[Conventional commits src]: https://conventionalcommits.org
-[Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg
 [net/http]: https://pkg.go.dev/net/http
 [semver src]: http://semver.org
 [Github main status src]: https://github.com/nafigator/zapper/tree/main
