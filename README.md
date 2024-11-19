@@ -1,5 +1,5 @@
 # Zapper
-[![GitHub release][Release img]][Release src] [![Github main status][Github main status badge]][Github main status src] [![Go Report Card][Go Report Card badge]][Go Report Card src] [![Coverage report][Codecov report badge]][Codecov report src]
+[![GitHub license][License img]][License src] [![GitHub release][Release img]][Release src] [![Github main status][Github main status badge]][Github main status src] [![Go Report Card][Go Report Card badge]][Go Report Card src] [![Coverage report][Codecov report badge]][Codecov report src] [![Conventional Commits][Conventional commits badge]][Conventional commits src]
 
 - easiest Zap Logger configuration using yaml-config.
 - configuration TCP and UDP Zap Logger sinks out of box.
@@ -54,12 +54,12 @@ By default, package search yaml-config in current dir or in `/etc/zap/config.yml
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
 as a public API. Read more on [SemVer.org][semver src].
 
-[License img]: https://img.shields.io/badge/license-MIT-brightgreen.svg
+[License img]: https://img.shields.io/github/license/nafigator/zapper?color=teal
 [License src]: https://www.tldrlegal.com/license/mit-license
-[Release img]: https://img.shields.io/badge/release-0.5.0-red.svg
+[Release img]: https://img.shields.io/github/v/tag/nafigator/zapper?logo=github&color=teal
 [Release src]: https://github.com/nafigator/zapper
 [Conventional commits src]: https://conventionalcommits.org
-[Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-blue.svg
+[Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-teal.svg
 [Config example]: https://github.com/nafigator/zapper/blob/main/config.example.yml
 [semver src]: http://semver.org
 [Github main status src]: https://github.com/nafigator/zapper/tree/main
