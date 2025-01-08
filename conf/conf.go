@@ -59,6 +59,18 @@ func New(p string) (*zap.Config, error) {
 	return &c, nil
 }
 
+// MustYML creates Zap Logger config from custom yml-config.
+func MustYML(p string) *zap.Config {
+	var c zap.Config
+	var err error
+
+	if err = yaml.Unmarshal([]byte(p), &c); err != nil {
+		panic(err)
+	}
+
+	return &c
+}
+
 // Default initializes zap.Config from default constant yml config.
 func Default() *zap.Config {
 	var c zap.Config

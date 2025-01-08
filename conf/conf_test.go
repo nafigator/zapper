@@ -39,6 +39,7 @@ type suite struct {
 type testCase struct {
 	name          string
 	expectedErr   string
+	yml           string
 	expectedPanic bool
 	verbose       bool
 	expected      *zap.Config
@@ -77,6 +78,20 @@ func (s *suite) TestNew() {
 					cmp.Diff(actual, c.expected, opts()...),
 				)
 			}
+		})
+	}
+}
+
+func (s *suite) TestYML() {
+	for _, c := range YMLDataProvider() {
+		s.Run(c.name, func() {
+			actual := MustYML(c.yml)
+
+			s.True(
+				cmp.Equal(c.expected, actual, opts()...),
+				"conf.New() invalid response",
+				cmp.Diff(actual, c.expected, opts()...),
+			)
 		})
 	}
 }
@@ -169,6 +184,16 @@ func newDataProvider() []*testCase {
 			name:        "yml unmarshal error",
 			expectedErr: unmarshalErrMsg,
 			patches:     []patch{OSOpen, IOReadAll, yamlUnmarshalErr},
+		},
+	}
+}
+
+func YMLDataProvider() []*testCase {
+	return []*testCase{
+		{
+			name:     "successful",
+			expected: Default(),
+			yml:      DefaultConf,
 		},
 	}
 }
