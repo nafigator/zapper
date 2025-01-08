@@ -60,6 +60,7 @@ func New(p string) (*zap.Config, error) {
 }
 
 // MustYML creates Zap Logger config from custom yml-config.
+// On any error call panic.
 func MustYML(p string) *zap.Config {
 	var c zap.Config
 	var err error
@@ -84,7 +85,7 @@ func Default() *zap.Config {
 }
 
 // Must returns Zap Logger config from custom file path.
-// On any errors return default config.
+// On any error return default config.
 // All errors suppressed but this can be changed by ZAPPER_CONF_VERBOSE=1
 // env variable.
 func Must() *zap.Config {

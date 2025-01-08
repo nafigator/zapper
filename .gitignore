@@ -15,9 +15,19 @@
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor/
 
 # Go workspace file
 go.work
 
-vendor
+.bash_history
+.config
+
+# Output of cover.out parsing
+cover.html
+
+# Go linter rules
+.golangci.yml
+
+# Ignore sh helpers
+*.sh
