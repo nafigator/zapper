@@ -85,6 +85,21 @@ func (s *suite) TestNew() {
 func (s *suite) TestYML() {
 	for _, c := range YMLDataProvider() {
 		s.Run(c.name, func() {
+			if len(c.patches) > 0 {
+				applyPatches(c.patches, s.tmpDir)
+				defer func() {
+					monkey.UnpatchAll()
+				}()
+			}
+
+			if c.expectedPanic {
+				s.Panics(func() {
+					MustYML(c.yml)
+				}, "expected panic didn't catch")
+
+				return
+			}
+
 			actual := MustYML(c.yml)
 
 			s.True(
@@ -194,6 +209,12 @@ func YMLDataProvider() []*testCase {
 			name:     "successful",
 			expected: Default(),
 			yml:      DefaultConf,
+		},
+		{
+			name:          "yml unmarshal panic",
+			expectedPanic: true,
+			yml:           DefaultConf,
+			patches:       []patch{yamlUnmarshalErr},
 		},
 	}
 }
