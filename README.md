@@ -1,7 +1,9 @@
 # Zapper
 [![GitHub license][License img]][License src] [![GitHub release][Release img]][Release src] [![Github main status][Github main status badge]][Github main status src] [![Go Report Card][Go Report Card badge]][Go Report Card src] [![Coverage report][Codecov report badge]][Codecov report src] [![Conventional Commits][Conventional commits badge]][Conventional commits src]
 
+### Features
 - easiest Zap Logger configuration using yaml-config.
+- configuration for environments without code change.
 - configuration TCP and UDP Zap Logger sinks out of box.
 - minimal code for full-featured Zap Logger initialization. 
 
