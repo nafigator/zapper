@@ -35,6 +35,40 @@ encoderConfig:
   durationEncoder: string
   callerEncoder: default
 `
+	PlainText = `
+level: info
+encoding: console
+outputPaths:
+  - stdout
+errorOutputPaths:
+  - stderr
+encoderConfig:
+  messageKey: message
+  levelKey:   level
+  timeKey:    time
+  levelEncoder: capital
+  timeEncoder:
+    layout: 2006-01-02 15:04:05.000
+  durationEncoder: string
+`
+	Debug = `
+level: debug
+encoding: console
+outputPaths:
+  - stdout
+errorOutputPaths:
+  - stderr
+encoderConfig:
+  messageKey: message
+  levelKey:   level
+  timeKey:    time
+  callerKey:  line
+  levelEncoder: capitalColor
+  timeEncoder:
+    layout: 2006-01-02 15:04:05.000
+  durationEncoder: string
+  callerEncoder: default
+`
 )
 
 // New creates Zap Logger config from custom file path.
