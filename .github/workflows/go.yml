@@ -74,7 +74,7 @@ jobs:
         run: go test -v ./... -gcflags=-l -race -coverprofile=./zapper.out -covermode=atomic
 
       - name: Check conf package coverage
-        uses: vladopajic/go-test-coverage@v2
+        uses: vladopajic/go-test-coverage@v2.11.2
         with:
           profile: ./conf/conf.out
           local-prefix: github.com/nafigator/zapper
@@ -83,7 +83,7 @@ jobs:
           threshold-total: 100
 
       - name: Check writer package coverage
-        uses: vladopajic/go-test-coverage@v2
+        uses: vladopajic/go-test-coverage@v2.11.2
         with:
           profile: ./writer/writer.out
           local-prefix: github.com/nafigator/zapper
@@ -92,7 +92,7 @@ jobs:
           threshold-total: 100
 
       - name: Check zapper package coverage
-        uses: vladopajic/go-test-coverage@v2
+        uses: vladopajic/go-test-coverage@v2.11.2
         with:
           profile: ./zapper.out
           local-prefix: github.com/nafigator/zapper
