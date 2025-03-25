@@ -17,6 +17,8 @@ const (
 	yamlConfigMsg = "Zap config %s parsing error: %s. Fallback to default"
 	localPath     = "./config.yml"
 	systemPath    = "/etc/zap/config.yml"
+	zeroString    = "0"
+	falseString   = "false"
 	DefaultConf   = `
 level: info
 encoding: console
@@ -199,5 +201,5 @@ func findFile(p []string) (*os.File, error) {
 func silent() bool {
 	v, ok := os.LookupEnv(verboseEnv)
 
-	return !ok || (v != "false" && v != "0")
+	return !ok || v == falseString || v == zeroString
 }
