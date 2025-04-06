@@ -26,8 +26,5 @@ go.work
 # Output of cover.out parsing
 cover.html
 
-# Go linter rules
-.golangci.yml
-
 # Ignore sh helpers
 *.sh

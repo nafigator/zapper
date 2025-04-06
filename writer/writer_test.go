@@ -3,7 +3,7 @@ package writer_test
 import (
 	"testing"
 
-	. "github.com/nafigator/zapper/writer"
+	. "github.com/nafigator/zapper/writer" //nolint: revive // In tests it's ok
 	ss "github.com/stretchr/testify/suite"
 	"go.uber.org/zap"
 )
@@ -14,8 +14,8 @@ type suite struct {
 
 type testCase struct {
 	logger      ErrLogger
-	msg         string
 	expectedErr error
+	msg         string
 	expected    int
 }
 
@@ -39,9 +39,9 @@ func (s *suite) TestWrite() {
 func writeDataProvider() []*testCase {
 	return []*testCase{
 		{
+			expected: 8,
 			logger:   zap.NewNop().Sugar(),
 			msg:      "test msg",
-			expected: 8,
 		},
 	}
 }

@@ -9,7 +9,7 @@ import (
 	"bou.ke/monkey"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	. "github.com/nafigator/zapper/conf"
+	. "github.com/nafigator/zapper/conf" //nolint: revive // In tests it's ok
 	ss "github.com/stretchr/testify/suite"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -32,19 +32,19 @@ const (
 type patch int
 
 type suite struct {
-	tmpDir string
 	ss.Suite
+	tmpDir string
 }
 
 type testCase struct {
+	expected      *zap.Config
 	name          string
 	expectedErr   string
 	yml           string
-	expectedPanic bool
-	verbose       bool
-	expected      *zap.Config
 	path          string
 	patches       []patch
+	expectedPanic bool
+	verbose       bool
 }
 
 func TestRun(t *testing.T) {
@@ -68,7 +68,7 @@ func (s *suite) TestNew() {
 			actual, err := New(c.path)
 
 			if c.expectedErr != "" {
-				s.EqualError(err, c.expectedErr, "conf returns unexpected error")
+				s.Require().EqualError(err, c.expectedErr, "conf returns unexpected error")
 			}
 
 			if c.expected != nil {
@@ -203,7 +203,7 @@ func newDataProvider() []*testCase {
 	}
 }
 
-func YMLDataProvider() []*testCase {
+func YMLDataProvider() []*testCase { //nolint: revive // Not exported func
 	return []*testCase{
 		{
 			name:     "successful",

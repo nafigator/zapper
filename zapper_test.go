@@ -7,7 +7,7 @@ import (
 	"bou.ke/monkey"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	. "github.com/nafigator/zapper"
+	. "github.com/nafigator/zapper" //nolint: revive // In tests it's ok
 	"github.com/nafigator/zapper/conf"
 	ss "github.com/stretchr/testify/suite"
 	"go.uber.org/zap"
@@ -26,11 +26,11 @@ type suite struct {
 }
 
 type testCase struct {
+	expected      *zap.SugaredLogger
 	name          string
 	expectedErr   string
-	expectedPanic bool
-	expected      *zap.SugaredLogger
 	patches       []patch
+	expectedPanic bool
 }
 
 func TestRun(t *testing.T) {
@@ -50,7 +50,7 @@ func (s *suite) TestNew() {
 			actual, err := New(conf.Default())
 
 			if c.expectedErr != "" {
-				s.EqualError(err, c.expectedErr, "New() returns unexpected error")
+				s.Require().EqualError(err, c.expectedErr, "New() returns unexpected error")
 			}
 
 			if c.expected != nil {
