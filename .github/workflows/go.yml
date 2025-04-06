@@ -5,30 +5,51 @@ name: Go
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
+  pull_request_target:
     branches: [ "main" ]
 
+env:
+  GO_VERSION: '1.20.10'
+  GOLANGCI_LINT_VERSION: 'v1.55.2'
+
 jobs:
+  detect-modules:
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.set-modules.outputs.modules }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: '**/go.sum'
+      - id: set-modules
+        run: echo modules=$(echo $(go list -C conf -m -json; go list -C writer -m -json; go list -m -json) | jq -s '.' | jq -c '[.[].Dir]') >> $GITHUB_OUTPUT
+
   golangci:
     name: lint
+    needs: detect-modules
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        modules: ${{ fromJSON(needs.detect-modules.outputs.modules) }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-go@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
         with:
-          go-version: '1.20'
-          cache: false
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: '**/go.sum'
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
+        uses: golangci/golangci-lint-action@v6
         with:
           # Require: The version of golangci-lint to use.
           # When `install-mode` is `binary` (default) the value can be v1.2 or v1.2.3 or `latest` to use the latest version.
           # When `install-mode` is `goinstall` the value can be v1.2.3, `latest`, or the hash of a commit.
-          version: v1.55.2
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
 
           # Optional: working directory, useful for monorepos
-          #working-directory: headers
+          # working-directory: headers
+          working-directory: ${{ matrix.modules }}
 
           # Optional: golangci-lint command line arguments.
           #
@@ -55,6 +76,9 @@ jobs:
   tests:
     name: tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ '1.20.10', oldstable, stable ]
     steps:
       - uses: actions/checkout@v3
 
@@ -62,7 +86,7 @@ jobs:
         uses: actions/setup-go@v4
         with:
           cache-dependency-path: '**/go.sum'
-          go-version: '1.20'
+          go-version: ${{ matrix.go-version }}
 
       - name: Test conf package
         run: go test -C conf -v -gcflags=-l ./... -race -coverprofile=./conf.out -covermode=atomic
