@@ -3,7 +3,7 @@ package conf
 
 import (
 	"io"
-	"log"
+	"log" //nolint:depguard // Allowed in tests
 	"os"
 
 	"go.uber.org/zap"

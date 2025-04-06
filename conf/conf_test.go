@@ -1,7 +1,7 @@
 package conf_test
 
 import (
-	"fmt"
+	"errors"
 	"io"
 	"os"
 	"testing"
@@ -302,7 +302,7 @@ func applyPatches(p []patch, d string) {
 	for _, v := range p {
 		switch v {
 		case OSOpen:
-			monkey.Patch(os.Open, func(name string) (*os.File, error) {
+			monkey.Patch(os.Open, func(_ string) (*os.File, error) {
 				f, err := os.CreateTemp(d, "*")
 				if err != nil {
 					panic(err)
@@ -311,11 +311,11 @@ func applyPatches(p []patch, d string) {
 				return f, nil
 			})
 		case OSOpenErr:
-			monkey.Patch(os.Open, func(name string) (*os.File, error) {
+			monkey.Patch(os.Open, func(_ string) (*os.File, error) {
 				return nil, os.ErrNotExist
 			})
 		case OSOpenNil:
-			monkey.Patch(os.Open, func(name string) (*os.File, error) {
+			monkey.Patch(os.Open, func(_ string) (*os.File, error) {
 				return nil, error(nil)
 			})
 		case IOReadAll:
@@ -328,17 +328,17 @@ func applyPatches(p []patch, d string) {
 			})
 		case yamlUnmarshalErr:
 			monkey.Patch(yaml.Unmarshal, func([]byte, interface{}) error {
-				return fmt.Errorf(unmarshalErrMsg)
+				return errors.New(unmarshalErrMsg)
 			})
 		case yamlUnmarshalErrOnce:
 			monkey.Patch(yaml.Unmarshal, func([]byte, interface{}) error {
 				monkey.Unpatch(yaml.Unmarshal)
 
-				return fmt.Errorf(unmarshalErrMsg)
+				return errors.New(unmarshalErrMsg)
 			})
 		case cfgBuildErr:
 			monkey.Patch(zap.Config.Build, func(zap.Config, ...zap.Option) (*zap.Logger, error) {
-				return nil, fmt.Errorf("config build error stub")
+				return nil, errors.New("config build error stub")
 			})
 		default:
 			continue
