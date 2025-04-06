@@ -1,7 +1,7 @@
 package zapper_test
 
 import (
-	"fmt"
+	"errors"
 	"testing"
 
 	"bou.ke/monkey"
@@ -136,7 +136,7 @@ func applyPatches(p []patch) {
 		switch v {
 		case cfgBuildErr:
 			monkey.Patch(zap.Config.Build, func(zap.Config, ...zap.Option) (*zap.Logger, error) {
-				return nil, fmt.Errorf(cfgBuildErrMsg)
+				return nil, errors.New(cfgBuildErrMsg)
 			})
 		default:
 			continue

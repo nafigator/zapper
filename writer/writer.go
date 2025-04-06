@@ -1,3 +1,4 @@
+// Package writer provides err logger wrapper for using Zap Logger as net/http server logger.
 package writer
 
 type ErrLogger interface {

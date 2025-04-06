@@ -1,3 +1,4 @@
+// Package zapper provides Zap Logger easy configuration by predefined config.
 package zapper
 
 import (

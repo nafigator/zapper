@@ -1,3 +1,4 @@
+// Package conf provides Zap Logger different config build approaches.
 package conf
 
 import (
