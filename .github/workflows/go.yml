@@ -5,10 +5,12 @@ name: Go
 
 on:
   push:
+    branches:
+      - '**'
     tags:
       - '!**'
   pull_request_target:
-    branches: [ "main" ]
+    branches: [ 'main' ]
 
 env:
   GO_VERSION: '1.20.10'
