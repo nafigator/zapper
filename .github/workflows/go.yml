@@ -5,8 +5,8 @@ name: Go
 
 on:
   push:
-    tags-ignore:
-      - '**'
+    tags:
+      - '!**'
   pull_request_target:
     branches: [ "main" ]
 
