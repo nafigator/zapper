@@ -1,4 +1,4 @@
-package conf_test
+package conf
 
 import (
 	"errors"
@@ -9,7 +9,6 @@ import (
 	"bou.ke/monkey"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	. "github.com/nafigator/zapper/conf" //nolint: revive // In tests it's ok
 	ss "github.com/stretchr/testify/suite"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

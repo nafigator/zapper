@@ -1,9 +1,8 @@
-package writer_test
+package writer
 
 import (
 	"testing"
 
-	. "github.com/nafigator/zapper/writer" //nolint: revive // In tests it's ok
 	ss "github.com/stretchr/testify/suite"
 	"go.uber.org/zap"
 )
