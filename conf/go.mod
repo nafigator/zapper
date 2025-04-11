@@ -1,6 +1,6 @@
 module github.com/nafigator/zapper/conf
 
-go 1.20
+go 1.21
 
 require (
 	bou.ke/monkey v1.0.2
