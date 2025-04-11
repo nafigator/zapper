@@ -1,4 +1,4 @@
-package zapper_test
+package zapper
 
 import (
 	"errors"
@@ -7,10 +7,10 @@ import (
 	"bou.ke/monkey"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	. "github.com/nafigator/zapper" //nolint: revive // In tests it's ok
-	"github.com/nafigator/zapper/conf"
 	ss "github.com/stretchr/testify/suite"
 	"go.uber.org/zap"
+
+	"github.com/nafigator/zapper/conf"
 )
 
 const (
