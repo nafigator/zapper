@@ -1,10 +1,10 @@
 module github.com/nafigator/zapper
 
-go 1.20
+go 1.21
 
 require (
 	bou.ke/monkey v1.0.2
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/kontera-technologies/zap-net-sink v1.0.2
 	github.com/nafigator/zapper/conf v1.1.4
 	github.com/stretchr/testify v1.8.4
