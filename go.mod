@@ -6,7 +6,7 @@ require (
 	bou.ke/monkey v1.0.2
 	github.com/google/go-cmp v0.7.0
 	github.com/kontera-technologies/zap-net-sink v1.0.2
-	github.com/nafigator/zapper/conf v1.1.5
+	github.com/nafigator/zapper/conf v1.1.6
 	github.com/stretchr/testify v1.10.0
 	go.uber.org/zap v1.27.0
 )
