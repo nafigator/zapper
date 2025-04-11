@@ -7,7 +7,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/kontera-technologies/zap-net-sink v1.0.2
 	github.com/nafigator/zapper/conf v1.1.4
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.10.0
 	go.uber.org/zap v1.27.0
 )
 
