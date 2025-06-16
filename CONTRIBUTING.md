@@ -126,7 +126,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/nafiga
   - Fork this project
   - Create your feature branch: `git checkout -b my-new-feature`
   - Commit your changes: `git commit -am 'feat: Add some feature'`
-  - Push to the branch: `git push origin my-new-feature`
+  - Push to the branch: `git push -u origin HEAD`
   - Submit a pull request
   - When all PR checks completed, squash commits
   - Done! :tada:
