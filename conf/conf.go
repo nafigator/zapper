@@ -16,8 +16,8 @@ const (
 	readConfigMsg = "Zap config read failure: %s. Fallback to default"
 	findConfigMsg = "Zap configs not found in paths: %+v. Fallback to default"
 	yamlConfigMsg = "Zap config %s parsing error: %s. Fallback to default"
-	localPath     = "./config.yml"
-	systemPath    = "/etc/zap/config.yml"
+	localPath     = "./zapper.yml"
+	systemPath    = "/etc/zap/zapper.yml"
 	zeroString    = "0"
 	falseString   = "false"
 	DefaultConf   = `

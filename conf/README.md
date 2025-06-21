@@ -17,7 +17,7 @@ Created for simple Zap Logger configuration build based on yml-config.
 	)
 
 	func main() {
- 		// Initializes config based on yml-files /etc/zap/config.yml or ./config.yml
+		// Initializes config based on yml-files /etc/zap/zapper.yml or ./zapper.yml
 		log := zapper.Must(conf.Must())
 
 		log.Info("Zap Logger initialized")
@@ -43,9 +43,9 @@ encoderConfig:
   callerEncoder: default
 ```
 
-For more options see [config.example.yml][Config example].
+For more options see [zapper.example.yml][Config example].
 
-By default, package search yaml-config in current dir or in `/etc/zap/config.yml`.
+By default, package search `zapper.yml` in current dir or in `/etc/zap/zapper.yml`.
 
 ### Usage
 #### Default
@@ -76,8 +76,8 @@ import (
 )
 
 func main() {
-	// Initializes config based on yml-files /etc/zap/config.yml or ./config.yml
-	cfg, err := conf.New("/path/to/config.yml")
+	// Initializes config based on yml-files /etc/zap/zapper.yml or ./zapper.yml
+	cfg, err := conf.New("/path/to/zapper.yml")
 	if err != nil {
 		// handle error
 	}
@@ -133,4 +133,4 @@ as a public API. Read more on [SemVer.org][semver src].
 [Go Report Card badge]: https://goreportcard.com/badge/github.com/nafigator/zapper/conf
 [Codecov report src]: https://app.codecov.io/gh/nafigator/zapper/tree/main/conf
 [Codecov report badge]: https://codecov.io/gh/nafigator/zapper/conf/branch/main/graph/badge.svg
-[Config example]: https://github.com/nafigator/zapper/blob/main/config.example.yml
+[Config example]: https://github.com/nafigator/zapper/blob/main/zapper.example.yml
