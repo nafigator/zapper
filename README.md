@@ -48,9 +48,9 @@ encoderConfig:
   callerEncoder: default
 ```
 
-For more options see [config.example.yml][Config example].
+For more options see [zapper.example.yml][Config example].
 
-By default, package search yaml-config in current dir or in `/etc/zap/config.yml`.
+By default, package search `zapper.yml` in current dir or in `/etc/zap/zapper.yml`.
 
 ### Versioning
 This software follows *"Semantic Versioning"* specifications. The signature of exported package functions is used
@@ -62,7 +62,7 @@ as a public API. Read more on [SemVer.org][semver src].
 [Release src]: https://github.com/nafigator/zapper
 [Conventional commits src]: https://conventionalcommits.org
 [Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-teal.svg
-[Config example]: https://github.com/nafigator/zapper/blob/main/config.example.yml
+[Config example]: https://github.com/nafigator/zapper/blob/main/zapper.example.yml
 [semver src]: http://semver.org
 [Github main status src]: https://github.com/nafigator/zapper/tree/main
 [Github main status badge]: https://github.com/nafigator/zapper/actions/workflows/go.yml/badge.svg?branch=main
