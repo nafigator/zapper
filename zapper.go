@@ -2,7 +2,7 @@
 package zapper
 
 import (
-	_ "github.com/kontera-technologies/zap-net-sink" // Init UDP and TCP zap logger sinks
+	_ "github.com/nafigator/zap-net-sink" // Init UDP and TCP zap logger sinks
 	"go.uber.org/zap"
 )
 
