@@ -22,7 +22,7 @@ const (
 	falseString   = "false"
 	DefaultConf   = `
 level: info
-encoding: console
+encoding: json
 outputPaths:
   - stdout
 errorOutputPaths:
@@ -32,7 +32,7 @@ encoderConfig:
   levelKey:   level
   timeKey:    time
   callerKey:  line
-  levelEncoder: capitalColor
+  levelEncoder: capital
   timeEncoder:
     layout: 2006-01-02 15:04:05.000
   durationEncoder: string
