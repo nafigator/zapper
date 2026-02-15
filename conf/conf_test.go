@@ -32,6 +32,7 @@ type patch int
 
 type suite struct {
 	ss.Suite
+
 	tmpDir string
 }
 
@@ -326,11 +327,11 @@ func applyPatches(p []patch, d string) {
 				return nil, os.ErrPermission
 			})
 		case yamlUnmarshalErr:
-			monkey.Patch(yaml.Unmarshal, func([]byte, interface{}) error {
+			monkey.Patch(yaml.Unmarshal, func([]byte, any) error {
 				return errors.New(unmarshalErrMsg)
 			})
 		case yamlUnmarshalErrOnce:
-			monkey.Patch(yaml.Unmarshal, func([]byte, interface{}) error {
+			monkey.Patch(yaml.Unmarshal, func([]byte, any) error {
 				monkey.Unpatch(yaml.Unmarshal)
 
 				return errors.New(unmarshalErrMsg)

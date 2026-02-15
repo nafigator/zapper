@@ -2,7 +2,7 @@
 package writer
 
 type ErrLogger interface {
-	Error(...interface{})
+	Error(...any)
 }
 
 type ErrWriter struct {
