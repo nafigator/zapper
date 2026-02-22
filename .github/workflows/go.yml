@@ -129,7 +129,7 @@ jobs:
           #
           # Note: By default, the `.golangci.yml` file should be at the root of the repository.
           # The location of the configuration file can be changed by using `--config=`
-          args: --timeout=20m --output.sarif.path="${{ matrix.modules }}/results.sarif"
+          args: --timeout=20m --config=/home/runner/work/zapper/zapper/.golangci.yml --output.text.path=stdout --output.sarif.path="${{ matrix.modules }}/results.sarif"
 
           # Optional: show only new issues if it's a pull request. The default value is `false`.
           # only-new-issues: true

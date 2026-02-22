@@ -65,7 +65,7 @@ as a public API. Read more on [SemVer.org][semver src].
 [Config example]: https://github.com/nafigator/zapper/blob/main/zapper.example.yml
 [semver src]: http://semver.org
 [Github main status src]: https://github.com/nafigator/zapper/tree/main
-[Github main status badge]: https://github.com/nafigator/zapper/actions/workflows/go.yml/badge.svg?branch=main
+[Github main status badge]: https://github.com/nafigator/zapper/actions/workflows/daily.yml/badge.svg?branch=main
 [Go Report Card src]: https://goreportcard.com/report/github.com/nafigator/zapper
 [Go Report Card badge]: https://goreportcard.com/badge/github.com/nafigator/zapper
 [Codecov report src]: https://app.codecov.io/gh/nafigator/zapper/tree/main
