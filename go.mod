@@ -8,7 +8,7 @@ require (
 	github.com/nafigator/zap-net-sink v1.0.4
 	github.com/nafigator/zapper/conf v1.1.12
 	github.com/stretchr/testify v1.11.1
-	go.uber.org/zap v1.27.1
+	go.uber.org/zap v1.28.0
 )
 
 require (
