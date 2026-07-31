@@ -6,9 +6,9 @@ require (
 	bou.ke/monkey v1.0.2
 	github.com/google/go-cmp v0.7.0
 	github.com/nafigator/zap-net-sink v1.0.4
-	github.com/nafigator/zapper/conf v1.1.12
+	github.com/nafigator/zapper/conf v1.1.13
 	github.com/stretchr/testify v1.11.1
-	go.uber.org/zap v1.27.1
+	go.uber.org/zap v1.28.0
 )
 
 require (
