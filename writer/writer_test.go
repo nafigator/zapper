@@ -20,6 +20,8 @@ type testCase struct {
 
 // TestRun run tests suite.
 func TestRun(t *testing.T) {
+	t.Parallel()
+
 	s := suite{}
 
 	ss.Run(t, &s)

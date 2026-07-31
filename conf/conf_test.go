@@ -48,6 +48,8 @@ type testCase struct {
 }
 
 func TestRun(t *testing.T) {
+	t.Parallel()
+
 	s := suite{
 		tmpDir: t.TempDir(),
 	}
@@ -203,7 +205,7 @@ func newDataProvider() []*testCase {
 	}
 }
 
-func YMLDataProvider() []*testCase { //nolint: revive // Not exported func
+func YMLDataProvider() []*testCase {
 	return []*testCase{
 		{
 			name:     "successful",

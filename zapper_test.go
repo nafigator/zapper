@@ -34,6 +34,8 @@ type testCase struct {
 }
 
 func TestRun(t *testing.T) {
+	t.Parallel()
+
 	ss.Run(t, &suite{})
 }
 
