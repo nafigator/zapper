@@ -1,5 +1,5 @@
 # Zapper
-[![GitHub license][License img]][License src] [![GitHub release][Release img]][Release src] [![Github main status][Github main status badge]][Github main status src] [![Go Report Card][Go Report Card badge]][Go Report Card src] [![Coverage report][Codecov report badge]][Codecov report src] [![Conventional Commits][Conventional commits badge]][Conventional commits src]
+[![GitHub license][License img]][License src] [![GitHub release][Release img]][Release src] [![Github main status][Github main status badge]][Github main status src] [![Coverage report][Codecov report badge]][Codecov report src] [![Conventional Commits][Conventional commits badge]][Conventional commits src]
 
 ### Features
 - easiest Zap Logger configuration using yaml-config.
@@ -66,7 +66,5 @@ as a public API. Read more on [SemVer.org][semver src].
 [semver src]: http://semver.org
 [Github main status src]: https://github.com/nafigator/zapper/tree/main
 [Github main status badge]: https://github.com/nafigator/zapper/actions/workflows/daily.yml/badge.svg?branch=main
-[Go Report Card src]: https://goreportcard.com/report/github.com/nafigator/zapper
-[Go Report Card badge]: https://goreportcard.com/badge/github.com/nafigator/zapper
 [Codecov report src]: https://app.codecov.io/gh/nafigator/zapper/tree/main
 [Codecov report badge]: https://codecov.io/gh/nafigator/zapper/branch/main/graph/badge.svg
