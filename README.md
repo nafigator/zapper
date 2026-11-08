@@ -64,7 +64,7 @@ as a public API. Read more on [SemVer.org][semver src].
 [Conventional commits badge]: https://img.shields.io/badge/Conventional%20Commits-1.0.0-teal.svg
 [Config example]: https://github.com/nafigator/zapper/blob/main/zapper.example.yml
 [semver src]: http://semver.org
-[Github main status src]: https://github.com/nafigator/zapper/tree/main
+[Github main status src]: https://github.com/nafigator/zapper/actions/workflows/daily.yml?query=branch%3Amain
 [Github main status badge]: https://github.com/nafigator/zapper/actions/workflows/daily.yml/badge.svg?branch=main
 [Codecov report src]: https://app.codecov.io/gh/nafigator/zapper/tree/main
 [Codecov report badge]: https://codecov.io/gh/nafigator/zapper/branch/main/graph/badge.svg
