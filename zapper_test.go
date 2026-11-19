@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"bou.ke/monkey"
+	"github.com/agiledragon/gomonkey/v2"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	ss "github.com/stretchr/testify/suite"
@@ -43,10 +43,8 @@ func (s *suite) TestNew() {
 	for _, c := range newDataProvider() {
 		s.Run(c.name, func() {
 			if len(c.patches) > 0 {
-				applyPatches(c.patches)
-				defer func() {
-					monkey.UnpatchAll()
-				}()
+				patches := applyPatches(c.patches)
+				defer resetAll(patches)
 			}
 
 			actual, err := New(conf.Default())
@@ -66,10 +64,8 @@ func (s *suite) TestMust() {
 	for _, c := range mustDataProvider() {
 		s.Run(c.name, func() {
 			if len(c.patches) > 0 {
-				applyPatches(c.patches)
-				defer func() {
-					monkey.UnpatchAll()
-				}()
+				patches := applyPatches(c.patches)
+				defer resetAll(patches)
 			}
 
 			if c.expectedPanic {
@@ -133,15 +129,36 @@ func opts() cmp.Options {
 	}
 }
 
-func applyPatches(p []patch) {
+func applyPatches(p []patch) []*gomonkey.Patches {
+	result := make([]*gomonkey.Patches, 0, len(p))
+
 	for _, v := range p {
+		var pt *gomonkey.Patches
+
 		switch v {
 		case cfgBuildErr:
-			monkey.Patch(zap.Config.Build, func(zap.Config, ...zap.Option) (*zap.Logger, error) {
-				return nil, errors.New(cfgBuildErrMsg)
-			})
+			pt = gomonkey.ApplyFunc(
+				zap.Config.Build,
+				func(zap.Config, ...zap.Option) (*zap.Logger, error) {
+					return nil, errors.New(cfgBuildErrMsg)
+				},
+			)
 		default:
 			continue
+		}
+
+		if pt != nil {
+			result = append(result, pt)
+		}
+	}
+
+	return result
+}
+
+func resetAll(patches []*gomonkey.Patches) {
+	for _, p := range patches {
+		if p != nil {
+			p.Reset()
 		}
 	}
 }
