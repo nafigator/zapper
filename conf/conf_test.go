@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	"bou.ke/monkey"
+	"github.com/agiledragon/gomonkey/v2"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	ss "github.com/stretchr/testify/suite"
@@ -61,10 +61,8 @@ func (s *suite) TestNew() {
 	for _, c := range newDataProvider() {
 		s.Run(c.name, func() {
 			if len(c.patches) > 0 {
-				applyPatches(c.patches, s.tmpDir)
-				defer func() {
-					monkey.UnpatchAll()
-				}()
+				patches := applyPatches(c.patches, s.tmpDir)
+				defer resetAll(patches)
 			}
 
 			actual, err := New(c.path)
@@ -88,10 +86,8 @@ func (s *suite) TestYML() {
 	for _, c := range YMLDataProvider() {
 		s.Run(c.name, func() {
 			if len(c.patches) > 0 {
-				applyPatches(c.patches, s.tmpDir)
-				defer func() {
-					monkey.UnpatchAll()
-				}()
+				patches := applyPatches(c.patches, s.tmpDir)
+				defer resetAll(patches)
 			}
 
 			if c.expectedPanic {
@@ -117,10 +113,8 @@ func (s *suite) TestDefault() {
 	for _, c := range defaultDataProvider() {
 		s.Run(c.name, func() {
 			if len(c.patches) > 0 {
-				applyPatches(c.patches, s.tmpDir)
-				defer func() {
-					monkey.UnpatchAll()
-				}()
+				patches := applyPatches(c.patches, s.tmpDir)
+				defer resetAll(patches)
 			}
 
 			if c.expectedPanic {
@@ -148,10 +142,8 @@ func (s *suite) TestMust() {
 	for _, c := range mustDataProvider() {
 		s.Run(c.name, func() {
 			if len(c.patches) > 0 {
-				applyPatches(c.patches, s.tmpDir)
-				defer func() {
-					monkey.UnpatchAll()
-				}()
+				patches := applyPatches(c.patches, s.tmpDir)
+				defer resetAll(patches)
 			}
 
 			if c.expectedPanic {
@@ -300,11 +292,15 @@ func mustDataProvider() []*testCase {
 	}
 }
 
-func applyPatches(p []patch, d string) {
+func applyPatches(p []patch, d string) []*gomonkey.Patches {
+	result := make([]*gomonkey.Patches, 0, len(p))
+
 	for _, v := range p {
+		var pt *gomonkey.Patches
+
 		switch v {
 		case OSOpen:
-			monkey.Patch(os.Open, func(_ string) (*os.File, error) {
+			pt = gomonkey.ApplyFunc(os.Open, func(_ string) (*os.File, error) {
 				f, err := os.CreateTemp(d, "*")
 				if err != nil {
 					panic(err)
@@ -313,37 +309,51 @@ func applyPatches(p []patch, d string) {
 				return f, nil
 			})
 		case OSOpenErr:
-			monkey.Patch(os.Open, func(_ string) (*os.File, error) {
+			pt = gomonkey.ApplyFunc(os.Open, func(_ string) (*os.File, error) {
 				return nil, os.ErrNotExist
 			})
 		case OSOpenNil:
-			monkey.Patch(os.Open, func(_ string) (*os.File, error) {
+			pt = gomonkey.ApplyFunc(os.Open, func(_ string) (*os.File, error) {
 				return nil, error(nil)
 			})
 		case IOReadAll:
-			monkey.Patch(io.ReadAll, func(io.Reader) ([]byte, error) {
+			pt = gomonkey.ApplyFunc(io.ReadAll, func(io.Reader) ([]byte, error) {
 				return []byte(DefaultConf), nil
 			})
 		case IOReadAllErr:
-			monkey.Patch(io.ReadAll, func(io.Reader) ([]byte, error) {
+			pt = gomonkey.ApplyFunc(io.ReadAll, func(io.Reader) ([]byte, error) {
 				return nil, os.ErrPermission
 			})
 		case yamlUnmarshalErr:
-			monkey.Patch(yaml.Unmarshal, func([]byte, any) error {
+			pt = gomonkey.ApplyFunc(yaml.Unmarshal, func([]byte, any) error {
 				return errors.New(unmarshalErrMsg)
 			})
 		case yamlUnmarshalErrOnce:
-			monkey.Patch(yaml.Unmarshal, func([]byte, any) error {
-				monkey.Unpatch(yaml.Unmarshal)
+			pt = gomonkey.ApplyFunc(yaml.Unmarshal, func([]byte, any) error {
+				pt.Reset()
 
 				return errors.New(unmarshalErrMsg)
 			})
 		case cfgBuildErr:
-			monkey.Patch(zap.Config.Build, func(zap.Config, ...zap.Option) (*zap.Logger, error) {
+			pt = gomonkey.ApplyFunc(zap.Config.Build, func(zap.Config, ...zap.Option) (*zap.Logger, error) {
 				return nil, errors.New("config build error stub")
 			})
 		default:
 			continue
+		}
+
+		if pt != nil {
+			result = append(result, pt)
+		}
+	}
+
+	return result
+}
+
+func resetAll(patches []*gomonkey.Patches) {
+	for _, p := range patches {
+		if p != nil {
+			p.Reset()
 		}
 	}
 }

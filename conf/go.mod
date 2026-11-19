@@ -3,7 +3,7 @@ module github.com/nafigator/zapper/conf
 go 1.23.0
 
 require (
-	bou.ke/monkey v1.0.2
+	github.com/agiledragon/gomonkey/v2 v2.14.4
 	github.com/google/go-cmp v0.7.0
 	github.com/stretchr/testify v1.11.1
 	go.uber.org/zap v1.28.0
