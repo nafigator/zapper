@@ -6,7 +6,7 @@ require (
 	github.com/agiledragon/gomonkey/v2 v2.14.4
 	github.com/google/go-cmp v0.7.0
 	github.com/nafigator/zap-net-sink v1.0.4
-	github.com/nafigator/zapper/conf v1.1.13
+	github.com/nafigator/zapper/conf v1.1.14
 	github.com/stretchr/testify v1.11.1
 	go.uber.org/zap v1.28.0
 )
